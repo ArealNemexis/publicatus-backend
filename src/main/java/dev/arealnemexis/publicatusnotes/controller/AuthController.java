@@ -1,11 +1,11 @@
 package dev.arealnemexis.publicatusnotes.controller;
 
 import com.sun.istack.NotNull;
-import dev.arealnemexis.publicatusnotes.model.dtos.UserDetailsDto;
-import dev.arealnemexis.publicatusnotes.model.dtos.request.LoginDto;
-import dev.arealnemexis.publicatusnotes.model.dtos.request.RegisterDto;
-import dev.arealnemexis.publicatusnotes.model.dtos.response.AuthenticationResponseDto;
-import dev.arealnemexis.publicatusnotes.model.dtos.response.DefaultResponseDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.UserDetailsDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.request.LoginDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.request.RegisterDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.response.AuthenticationResponseDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.response.DefaultResponseDto;
 import dev.arealnemexis.publicatusnotes.service.JwtTokenService;
 import dev.arealnemexis.publicatusnotes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +38,13 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/signin")
-    public ResponseEntity<DefaultResponseDto<?>> signin(@NotNull @RequestBody LoginDto requestBody) throws Exception {
+
+    @PostMapping("/login")
+    public ResponseEntity<DefaultResponseDto<?>> login(@NotNull @RequestBody LoginDto requestBody) throws Exception {
         DefaultResponseDto<?> response;
         HttpStatus status;
         try {
-            UserDetailsDto userDetailsDto = userService.authenticateUser(requestBody);
-            String jwt = jwtTokenService.generateTokenFromUserDetails(userDetailsDto);
+            String jwt = userService.login(requestBody);
             AuthenticationResponseDto responseDto = new AuthenticationResponseDto(jwt);
             status = HttpStatus.OK;
             response = new DefaultResponseDto<AuthenticationResponseDto>("Login Sucesso", status.value(), responseDto);

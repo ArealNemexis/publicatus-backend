@@ -1,6 +1,7 @@
 package dev.arealnemexis.publicatusnotes.controller;
 
-import dev.arealnemexis.publicatusnotes.model.dtos.response.DefaultResponseDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.response.DefaultResponseDto;
+import dev.arealnemexis.publicatusnotes.security.SecurityConfiguration;
 import dev.arealnemexis.publicatusnotes.service.JwtTokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,8 @@ public class NotesController {
         DefaultResponseDto<?> responsePayload;
         HttpStatus httpStatus;
         try {
-            String id = jwtTokenService.validateToken(token);
+            String id = jwtTokenService.validateToken(token.replace(SecurityConfiguration.PREFIX, ""));
 
-            System.out.println(id);
             httpStatus = HttpStatus.OK;
             responsePayload = new DefaultResponseDto(id, httpStatus.value());
         } catch (ExpiredJwtException e) {

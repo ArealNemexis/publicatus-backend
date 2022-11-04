@@ -1,4 +1,4 @@
-package dev.arealnemexis.publicatusnotes.model.dtos.request;
+package dev.arealnemexis.publicatusnotes.datasource.dtos.request;
 
 public class LoginDto {
     private String email;

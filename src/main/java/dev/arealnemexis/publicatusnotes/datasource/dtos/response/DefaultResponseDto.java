@@ -1,4 +1,4 @@
-package dev.arealnemexis.publicatusnotes.model.dtos.response;
+package dev.arealnemexis.publicatusnotes.datasource.dtos.response;
 
 import java.io.Serializable;
 

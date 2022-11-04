@@ -1,6 +1,6 @@
 package dev.arealnemexis.publicatusnotes.service;
 
-import dev.arealnemexis.publicatusnotes.model.dtos.UserDetailsDto;
+import dev.arealnemexis.publicatusnotes.datasource.dtos.UserDetailsDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

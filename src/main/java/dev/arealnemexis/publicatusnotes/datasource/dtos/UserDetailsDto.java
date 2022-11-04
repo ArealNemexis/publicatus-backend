@@ -1,6 +1,6 @@
-package dev.arealnemexis.publicatusnotes.model.dtos;
+package dev.arealnemexis.publicatusnotes.datasource.dtos;
 
-import dev.arealnemexis.publicatusnotes.model.entity.UserEntity;
+import dev.arealnemexis.publicatusnotes.domain.UserEntity;
 
 public class UserDetailsDto {
     private Long id;

@@ -1,4 +1,4 @@
-package dev.arealnemexis.publicatusnotes.model.entity;
+package dev.arealnemexis.publicatusnotes.domain;
 
 import javax.persistence.*;
 
@@ -17,6 +17,7 @@ public class UserEntity {
 
     @Column(name = "email")
     private String email;
+
 
     public UserEntity(String name, String password, String email) {
         this.name = name;

@@ -1,37 +1,22 @@
 package dev.arealnemexis.publicatusnotes.security;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@ConfigurationProperties(prefix = "security.config")
+public class SecurityConfiguration {
+    public static String PREFIX;
+    public static String KEY;
+    public static Long EXPIRATION;
 
-
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring()
-//                .antMatchers("/**");
-//    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-//        http.requestMatchers().and()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.POST, "/auth/signon").permitAll()
-//                .antMatchers(HttpMethod.GET, "/notes/test").permitAll();
-        http.csrf()
-                .ignoringAntMatchers("**")
-                .and()
-                .authorizeRequests()
-                .antMatchers("**").permitAll();
+    public void setPrefix(String prefix){
+        PREFIX = prefix;
     }
-//.addFilterAfter(new JwtFilter(), UsernamePasswordAuthenticationFilter.class)
-
+    public void setKey(String key){
+        KEY = key;
+    }
+    public void setExpiration(Long expiration){
+        EXPIRATION = expiration;
+    }
 }

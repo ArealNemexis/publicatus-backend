@@ -1,4 +1,4 @@
-package dev.arealnemexis.publicatusnotes.model.dtos.response;
+package dev.arealnemexis.publicatusnotes.datasource.dtos.response;
 
 public class AuthenticationResponseDto {
     private String token;

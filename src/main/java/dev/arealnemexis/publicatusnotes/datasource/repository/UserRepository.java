@@ -1,6 +1,6 @@
-package dev.arealnemexis.publicatusnotes.repository;
+package dev.arealnemexis.publicatusnotes.datasource.repository;
 
-import dev.arealnemexis.publicatusnotes.model.entity.UserEntity;
+import dev.arealnemexis.publicatusnotes.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
