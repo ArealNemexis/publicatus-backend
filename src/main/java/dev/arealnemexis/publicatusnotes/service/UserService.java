@@ -2,8 +2,8 @@ package dev.arealnemexis.publicatusnotes.service;
 
 import dev.arealnemexis.publicatusnotes.datasource.dtos.request.LoginDto;
 import dev.arealnemexis.publicatusnotes.datasource.dtos.request.RegisterDto;
-import dev.arealnemexis.publicatusnotes.domain.UserEntity;
 import dev.arealnemexis.publicatusnotes.datasource.repository.UserRepository;
+import dev.arealnemexis.publicatusnotes.domain.UserEntity;
 import dev.arealnemexis.publicatusnotes.exception.GenericException;
 import dev.arealnemexis.publicatusnotes.exception.InvalidCredentialsException;
 import dev.arealnemexis.publicatusnotes.exception.UserNotFoundException;
@@ -63,14 +63,8 @@ public class UserService {
         return JWTCreator.create(SecurityConfiguration.PREFIX, SecurityConfiguration.KEY, jwtObject);
     }
 
-    public UserEntity findUserById(Long id) throws Exception {
+    public UserEntity findUserById(Long id) throws UserNotFoundException {
 
-//        UserDetailsDto user = new UserDetailsDto();
-//
-//        user.setId(id);
-//        user.setEmail(userEntity.getEmail());
-//        user.setName(userEntity.getName());
-
-        return userRepository.findById(id).orElseThrow(() -> new Exception("Usuario nao encontrado"));
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 }
