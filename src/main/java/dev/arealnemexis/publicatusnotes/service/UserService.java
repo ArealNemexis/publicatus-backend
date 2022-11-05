@@ -1,10 +1,12 @@
 package dev.arealnemexis.publicatusnotes.service;
 
-import dev.arealnemexis.publicatusnotes.datasource.dtos.UserDetailsDto;
 import dev.arealnemexis.publicatusnotes.datasource.dtos.request.LoginDto;
 import dev.arealnemexis.publicatusnotes.datasource.dtos.request.RegisterDto;
 import dev.arealnemexis.publicatusnotes.domain.UserEntity;
 import dev.arealnemexis.publicatusnotes.datasource.repository.UserRepository;
+import dev.arealnemexis.publicatusnotes.exception.GenericException;
+import dev.arealnemexis.publicatusnotes.exception.InvalidCredentialsException;
+import dev.arealnemexis.publicatusnotes.exception.UserNotFoundException;
 import dev.arealnemexis.publicatusnotes.security.JWTCreator;
 import dev.arealnemexis.publicatusnotes.security.JWTObject;
 import dev.arealnemexis.publicatusnotes.security.SecurityConfiguration;
@@ -42,14 +44,14 @@ public class UserService {
         }
     }
 
-    public String login(LoginDto loginDto) throws Exception {
+    public String login(LoginDto loginDto) throws GenericException {
         UserEntity userEntity = userRepository.getByEmail(loginDto.getEmail());
 
         if (userEntity == null) {
-            throw new Exception("Não encontrei");
+            throw new InvalidCredentialsException();
         }
         if (!passwordEncoder.matches(loginDto.getPassword(), userEntity.getPassword())) {
-            throw new Exception("Senha nao confere");
+            throw new InvalidCredentialsException();
         }
 
         JWTObject jwtObject = new JWTObject();
@@ -59,5 +61,16 @@ public class UserService {
         jwtObject.setRoles("AUTHENTICATED");
 
         return JWTCreator.create(SecurityConfiguration.PREFIX, SecurityConfiguration.KEY, jwtObject);
+    }
+
+    public UserEntity findUserById(Long id) throws Exception {
+
+//        UserDetailsDto user = new UserDetailsDto();
+//
+//        user.setId(id);
+//        user.setEmail(userEntity.getEmail());
+//        user.setName(userEntity.getName());
+
+        return userRepository.findById(id).orElseThrow(() -> new Exception("Usuario nao encontrado"));
     }
 }

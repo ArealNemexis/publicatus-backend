@@ -7,13 +7,16 @@ public class UserDetailsDto {
     private String name;
     private String email;
 
+    public UserDetailsDto() {
+    }
+
     public UserDetailsDto(Long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
     }
 
-    public UserDetailsDto(UserEntity entity){
+    public UserDetailsDto(UserEntity entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();

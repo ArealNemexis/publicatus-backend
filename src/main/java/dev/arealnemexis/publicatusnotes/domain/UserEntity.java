@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class UserEntity {
     @Id
     @GeneratedValue
+    @Column(name="id_user")
     private Long id;
 
     @Column(name = "name")
@@ -18,6 +19,9 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
+    public UserEntity(Long id){
+        this.id = id;
+    }
 
     public UserEntity(String name, String password, String email) {
         this.name = name;

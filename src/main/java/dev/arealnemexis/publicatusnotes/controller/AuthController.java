@@ -1,7 +1,6 @@
 package dev.arealnemexis.publicatusnotes.controller;
 
 import com.sun.istack.NotNull;
-import dev.arealnemexis.publicatusnotes.datasource.dtos.UserDetailsDto;
 import dev.arealnemexis.publicatusnotes.datasource.dtos.request.LoginDto;
 import dev.arealnemexis.publicatusnotes.datasource.dtos.request.RegisterDto;
 import dev.arealnemexis.publicatusnotes.datasource.dtos.response.AuthenticationResponseDto;
@@ -42,17 +41,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<DefaultResponseDto<?>> login(@NotNull @RequestBody LoginDto requestBody) throws Exception {
         DefaultResponseDto<?> response;
-        HttpStatus status;
-        try {
-            String jwt = userService.login(requestBody);
-            AuthenticationResponseDto responseDto = new AuthenticationResponseDto(jwt);
-            status = HttpStatus.OK;
-            response = new DefaultResponseDto<AuthenticationResponseDto>("Login Sucesso", status.value(), responseDto);
-        } catch (Exception e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            response = new DefaultResponseDto<>(e.getMessage(), status.value());
-        }
 
-        return new ResponseEntity(response, status);
+        String jwt = userService.login(requestBody);
+        AuthenticationResponseDto responseDto = new AuthenticationResponseDto(jwt);
+        response = new DefaultResponseDto<AuthenticationResponseDto>("Login Sucesso", HttpStatus.OK.value(), responseDto);
+
+
+        return ResponseEntity.ok(response);
     }
 }
