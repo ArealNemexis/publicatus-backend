@@ -13,4 +13,6 @@ public class PublicatusExceptionHandler {
         DefaultResponseDto<?> errorResponse = new DefaultResponseDto<>(exception.getMessage(), exception.getStatus().value());
         return new ResponseEntity<>(errorResponse, exception.getStatus());
     }
+
+//    @ExceptionHandler(value = RuntimeException.class)
 }

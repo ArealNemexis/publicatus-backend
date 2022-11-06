@@ -6,6 +6,7 @@ import dev.arealnemexis.publicatusnotes.datasource.repository.UserRepository;
 import dev.arealnemexis.publicatusnotes.domain.UserEntity;
 import dev.arealnemexis.publicatusnotes.exception.GenericException;
 import dev.arealnemexis.publicatusnotes.exception.InvalidCredentialsException;
+import dev.arealnemexis.publicatusnotes.exception.UserAlreadyRegistredException;
 import dev.arealnemexis.publicatusnotes.exception.UserNotFoundException;
 import dev.arealnemexis.publicatusnotes.security.JWTCreator;
 import dev.arealnemexis.publicatusnotes.security.JWTObject;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -25,13 +27,13 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void createUser(RegisterDto registerDto) throws Exception {
+    public void createUser(RegisterDto registerDto) throws UserAlreadyRegistredException {
         String encriptedPassword = passwordEncoder.encode(registerDto.getPassword());
 
         UserEntity userEntity = userRepository.getByEmail(registerDto.getEmail());
 
-        if (userEntity != null) {
-            throw new Exception("Email ja cadastrado");
+        if (Objects.nonNull(userEntity)) {
+            throw new UserAlreadyRegistredException();
         }
 
         userEntity = new UserEntity(registerDto.getName(), encriptedPassword, registerDto.getEmail());
