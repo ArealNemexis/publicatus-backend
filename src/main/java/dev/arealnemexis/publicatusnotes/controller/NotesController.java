@@ -32,7 +32,7 @@ public class NotesController {
     private NoteService noteService;
 
     @GetMapping
-    public ResponseEntity<?> getNotes(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<NoteResponseDto>> getNotes(@RequestHeader("Authorization") String token) {
         JWTObject jwtParsed = JWTCreator.create(token, SecurityConfiguration.PREFIX, SecurityConfiguration.KEY);
         Long userId = Long.valueOf(jwtParsed.getSubject());
 
